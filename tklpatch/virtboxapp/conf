@@ -1,0 +1,82 @@
+#!/bin/bash -ex
+
+HOSTNAME=virtboxapp
+
+# not sure we need a specific userid 
+USERNAME=vbox
+GROUPNAME=users
+
+# set hostname
+echo "$HOSTNAME" > /etc/hostname
+sed -i "s|127.0.1.1 \(.*\)|127.0.1.1 $HOSTNAME|" /etc/hosts
+
+# create the nzb userid (which all the nzb daemons run as)
+useradd -c "VirtualBox App userid" -d /home/$USERNAME -g $GROUPNAME -m -s /bin/bash "$USERNAME"
+chown -R $USERNAME:$GROUPNAME /home/$USERNAME
+
+# add the python installation tools and sudo
+apt-get update
+DEBIAN_FRONTEND=noninteractive apt-get -y \
+    -o DPkg::Options::=--force-confdef \
+    -o DPkg::Options::=--force-confold \
+    install python-software-properties sudo
+
+####################################################
+# INSTALL VIRTUALBOX
+####################################################
+echo "deb http://download.virtualbox.org/virtualbox/debian lucid contrib non-free" >> /etc/apt/sources.list.d/virtbox.list
+wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | apt-key add -
+apt-get update
+
+KV=`uname -r`
+# and install virtualbox
+DEBIAN_FRONTEND=noninteractive apt-get -y \
+    -o DPkg::Options::=--force-confdef \
+    -o DPkg::Options::=--force-confold \
+    install \
+    virtualbox-4.1 dkms linux-headers-$KV
+
+usermod -a -G vboxusers $USERNAME
+
+echo "VBOXWEB_USER=${USERNAME}" > /etc/default/virtualbox
+echo "VBOXWEB_HOST=127.0.0.1" >> /etc/default/virtualbox
+echo "VBOXWEB_PORT=18083" >> /etc/default/virtualbox
+echo "VBOXWEB_LOGFILE=/home/vbox/vboxweb.log" >> /etc/default/virtualbox
+
+cd 
+wget http://download.virtualbox.org/virtualbox/4.1.2/Oracle_VM_VirtualBox_Extension_Pack-4.1.2-73507.vbox-extpack
+# vboxmanage extpack install Oracle_VM_VirtualBox_Extension_Pack-4.1.2-73507.vbox-extpack
+
+
+####################################################
+# INSTALL PHPVIRTUALBOX
+####################################################
+# first the prereqs
+DEBIAN_FRONTEND=noninteractive apt-get -y \
+    -o DPkg::Options::=--force-confdef \
+    -o DPkg::Options::=--force-confold \
+    install \
+    apache2 libapache2-mod-php5 php5-cli
+
+# get the phpvirtualbox distro
+cd
+wget http://phpvirtualbox.googlecode.com/files/phpvirtualbox-4.1-2.zip
+unzip phpvirtualbox-4.1-2.zip
+mv phpvirtualbox-4.1-2/* /var/www
+cd /var/www
+mv config.php-example config.php
+
+
+
+####################################################
+# Final tasks
+####################################################
+
+####################################################
+# done!
+####################################################
+exit
+
+
+
+
