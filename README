@@ -1,6 +1,12 @@
 
 virtboxapp
 
+MAJOR NOTE
+==================================================================
+This was built as a learning exercise! There are other TurnKey Linux based tklpatches that do the same 
+thing but BETTER. One such example is available at http://9while9.com/
+
+
 This is a project for building a Turnkey Linux patch to configure a
 VirtualBox Linux installation on Ubuntu 10.04 (initially) along with the following additions:
 
