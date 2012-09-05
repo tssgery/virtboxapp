@@ -71,6 +71,14 @@ mv config.php-example config.php
 ####################################################
 # Final tasks
 ####################################################
+# Create the service file
+echo "PHPVirtualBox:  http://\$ipaddr" > /etc/confconsole/services.txt
+echo "Web Shell:      http://\$ipaddr:12320"           >> /etc/confconsole/services.txt
+echo "Webmin:         http://\$ipaddr:12321"           >> /etc/confconsole/services.txt
+echo " " >> /etc/confconsole/services.txt
+echo "Note: default PHPVirtualBox credentials are: "   >> /etc/confconsole/services.txt
+echo "      Userid: admin    Password: admin "         >> /etc/confconsole/services.txt
+
 
 ####################################################
 # done!
