@@ -8,7 +8,7 @@ thing but BETTER. One such example is available at http://9while9.com/
 
 
 This is a project for building a Turnkey Linux patch to configure a
-VirtualBox Linux installation on Ubuntu 10.04 (initially) along with the following additions:
+VirtualBox Linux installation on Debian 6 along with the following additions:
 
 - PHPVirtualBox
 
@@ -22,7 +22,7 @@ They are the heroes in this effort, not me.
 
 USAGE
 ==================================================================
-This patch should be applied onto version 11.2 of the 
+This patch should be applied onto version 12.0 of the 
 Turnkey CORE distribution found at:
 http://www.turnkeylinux.org/core
 
@@ -32,5 +32,5 @@ OR
 
 by patching the installable ISO image of the distribution
 
-tklpatch turnkey-core-11.2-lucid-x86.iso tklpatch/virtboxapp
+tklpatch turnkey-core-12.0-squeeze-x86.iso tklpatch/virtboxapp
 

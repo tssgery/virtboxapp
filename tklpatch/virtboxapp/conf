@@ -24,7 +24,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -y \
 ####################################################
 # INSTALL VIRTUALBOX
 ####################################################
-echo "deb http://download.virtualbox.org/virtualbox/debian lucid contrib non-free" >> /etc/apt/sources.list.d/virtbox.list
+echo "deb http://download.virtualbox.org/virtualbox/debian squeeze contrib non-free" >> /etc/apt/sources.list.d/virtbox.list
 wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | apt-key add -
 apt-get update
 
@@ -44,8 +44,8 @@ echo "VBOXWEB_PORT=18083" >> /etc/default/virtualbox
 echo "VBOXWEB_LOGFILE=/home/vbox/vboxweb.log" >> /etc/default/virtualbox
 
 cd 
-wget http://download.virtualbox.org/virtualbox/4.1.2/Oracle_VM_VirtualBox_Extension_Pack-4.1.2-73507.vbox-extpack
-# vboxmanage extpack install Oracle_VM_VirtualBox_Extension_Pack-4.1.2-73507.vbox-extpack
+VBOXEXT=Oracle_VM_VirtualBox_Extension_Pack-4.1.20-80170.vbox-extpack
+wget http://download.virtualbox.org/virtualbox/4.1.20/$VBOXEXT
 
 
 ####################################################
@@ -60,9 +60,9 @@ DEBIAN_FRONTEND=noninteractive apt-get -y \
 
 # get the phpvirtualbox distro
 cd
-wget http://phpvirtualbox.googlecode.com/files/phpvirtualbox-4.1-2.zip
-unzip phpvirtualbox-4.1-2.zip
-mv phpvirtualbox-4.1-2/* /var/www
+wget http://phpvirtualbox.googlecode.com/files/phpvirtualbox-4.1-9.zip
+unzip phpvirtualbox-4.1-9.zip
+mv phpvirtualbox-4.1-9/* /var/www
 cd /var/www
 mv config.php-example config.php
 

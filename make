@@ -4,15 +4,19 @@
 # - tklpatch tar.gz file
 # - installable iso image
 #
+#
+# Now tracking changes with reviewboard
+#
 
 
+APPNAME=virtboxapp
 BASEAPP=core
-TKLVER=11.2-lucid-x86
+TKLVER=12.0-squeeze-x86
 BASE=turnkey-$BASEAPP-$TKLVER
 BASEISO=$BASE.iso
 VER=`date +"%Y%m%d"`
-TARGET="turnkey-virtboxapp-11.2-lucid-x86.iso"
-PTARGET="virtboxapp.tar.gz"
+TARGET="turnkey-$APPNAME-$TKLVER.iso"
+PTARGET="$APPNAME.tar.gz"
 
 if [ $# -eq 1 ]; then
    TAG=$1
@@ -28,9 +32,8 @@ fi
 
 if [ $# -gt 0 ]; then
    git tag -a "${TAG}" -m "${COMMENT}"
-   # tag the code and set the variabnle names
-   TARGET="turnkey-virtboxapp-11.2-lucid-x86-$TAG.iso"
-   PTARGET="virtboxapp-$TAG.tar.gz"
+   # tag the code and set the variable names
+   TARGET="turnkey-$APPNAME-$TKLVER-$TAG.iso"
 fi
 
 
@@ -48,7 +51,7 @@ if [ ! -f "iso/${BASEISO}" ]; then
    fi
 
    # get the base iso image
-   wget -P iso http://downloads.sourceforge.net/project/turnkeylinux/turnkey-$BASEAPP/$TKLVER/$BASEISO
+   wget -P iso http://readynas/webserver/turnkey-12/iso/turnkey-$BASEAPP-$TKLVER.iso
 fi
 
 if [ ! -d build ]; then
@@ -60,9 +63,9 @@ fi
 cd build
 
 # run tklpatch
-tklpatch-bundle ../tklpatch/virtboxapp
-mv virtboxapp.tar.gz $PTARGET
-tklpatch ../iso/$BASEISO ../tklpatch/virtboxapp
+tklpatch-bundle ../tklpatch/$APPNAME
+mv $APPNAME.tar.gz $PTARGET
+TKLPATCH_LABEL="$APPNAME" tklpatch ../iso/$BASEISO $PTARGET
 mv $BASE-patched.iso $TARGET
 
 
