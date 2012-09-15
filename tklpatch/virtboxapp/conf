@@ -60,7 +60,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -y \
 
 # get the phpvirtualbox distro
 cd
-wget http://phpvirtualbox.googlecode.com/files/phpvirtualbox-4.1-9.zip
+wget http://phpvirtualbox.googlecode.com/files/phpvirtualbox-4.1-10.zip
 unzip phpvirtualbox-4.1-9.zip
 mv phpvirtualbox-4.1-9/* /var/www
 cd /var/www
