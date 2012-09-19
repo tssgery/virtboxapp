@@ -38,9 +38,9 @@ DEBIAN_FRONTEND=noninteractive apt-get -y \
 
 usermod -a -G vboxusers $USERNAME
 
-echo "VBOXWEB_USER=${USERNAME}" > /etc/default/virtualbox
-echo "VBOXWEB_HOST=127.0.0.1" >> /etc/default/virtualbox
-echo "VBOXWEB_PORT=18083" >> /etc/default/virtualbox
+echo "VBOXWEB_USER=${USERNAME}"                > /etc/default/virtualbox
+echo "VBOXWEB_HOST=127.0.0.1"                 >> /etc/default/virtualbox
+echo "VBOXWEB_PORT=18083"                     >> /etc/default/virtualbox
 echo "VBOXWEB_LOGFILE=/home/vbox/vboxweb.log" >> /etc/default/virtualbox
 
 cd 

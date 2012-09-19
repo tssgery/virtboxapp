@@ -11,4 +11,7 @@ apt-get install linux-headers-$KVER
 
 vboxmanage extpack install /root/Oracle_VM_VirtualBox_Extension_Pack-4.1.20*.vbox-extpack
 
+# restart the service to pick up the extensions
+/etc/init.d/vboxweb-service restart
+
 
